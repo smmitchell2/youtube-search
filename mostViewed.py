@@ -21,7 +21,7 @@ from rfc3339 import rfc3339
 #   https://cloud.google.com/console
 # Please ensure that you have enabled the YouTube Data API for your project.
 
-DEVELOPER_KEY = 'put API key here'
+DEVELOPER_KEY = 'API key'
 YOUTUBE_API_SERVICE_NAME = 'youtube'
 YOUTUBE_API_VERSION = 'v3'
 
@@ -35,6 +35,7 @@ def youtube_search(options):
     q=options.q,
     type="video",
     part='id,snippet',
+    order=options.order,
     maxResults=options.max_results,
     publishedBefore = options.published_before,
     publishedAfter = options.published_after
@@ -68,6 +69,7 @@ if __name__ == '__main__':
   print(time.asctime(time.localtime(timestamp - 86400)),time.asctime(time.localtime(timestamp)))
   parser = argparse.ArgumentParser()
   parser.add_argument('--q', help='Search term', default='landslide')
+  parser.add_argument('--order',help='Order',default='viewCount')
   parser.add_argument('--max-results', help='Max results', default=10)
   parser.add_argument('--published-before',help ='Published before',default=rfc3339(timestamp))
   parser.add_argument('--published-after',help ='Published after',default=rfc3339(timestamp - 86400))
